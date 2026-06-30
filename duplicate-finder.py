@@ -10,11 +10,18 @@ from collections import defaultdict
 def parse_arguments():
     """
     Реализация интерфейса командной строки (CLI) согласно требованиям задания.
-    Автоматически формирует параметр --help.
+    Полностью локализована на русский язык.
     """
     parser = argparse.ArgumentParser(
         description="Утилита для поиска и анализа файлов-дубликатов в среде Astra Linux.",
-        add_help=True
+        add_help=False  # Отключаем стандартный английский help
+    )
+    
+    # Добавляем русскоязычный параметр справки вручную
+    parser.add_argument(
+        "-h", "--help", 
+        action="help", 
+        help="Показать это справочное сообщение и выйти."
     )
     
     parser.add_argument(
@@ -37,6 +44,9 @@ def parse_arguments():
         type=str, 
         help="Путь к файлу для сохранения отчета. Поддерживаются расширения: .txt, .json, .csv"
     )
+    
+    # Переводим стандартный заголовок "optional arguments:"
+    parser._optionals.title = "Доступные параметры"
     
     return parser.parse_args()
 
